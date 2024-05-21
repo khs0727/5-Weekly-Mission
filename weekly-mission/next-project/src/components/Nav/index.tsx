@@ -3,11 +3,11 @@ import Link from "next/link";
 import Image from "next/image";
 import profileImage from "../../images/profileimg.jpg";
 import LinkbraryImage from "../../images/Linkbrary.png";
-import useProfileData from "pages/service/useProfileData";
+import useFolderData from "@api/useFolderData";
 import styles from "./Nav.module.css";
 
-const Nav = () => {
-  const { data, isLoading } = useProfileData();
+const Nav = ({ folderId }: { folderId: string }) => {
+  const { data, isLoading } = useFolderData(folderId);
 
   return (
     <nav className={styles.NavContainer}>

@@ -2,7 +2,7 @@ import React from "react";
 import LinksContent from "./LinksContent";
 import { Folder } from "pages/service/useFoldersByUserId";
 import { FolderId } from "@components/Folder";
-import { LinkData } from "pages/service/fetchFolderLinksData";
+import { LinkData } from "@api/useFetchLink";
 
 export interface FolderContentProps {
   foldersData: Folder;

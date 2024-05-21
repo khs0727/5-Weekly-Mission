@@ -26,6 +26,7 @@ function SigninPage() {
         // 로그인 성공
         const { accessToken } = response.data;
         localStorage.setItem("accessToken", accessToken);
+
         router.push("/folder");
       } else {
         // 로그인 실패

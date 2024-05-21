@@ -28,7 +28,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "pages/service/fetchFolderLinksData.ts"
+    "pages/service/useFetchLink.ts"
   ],
   "exclude": ["node_modules"]
 }

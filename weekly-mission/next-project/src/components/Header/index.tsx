@@ -1,12 +1,12 @@
 import React from "react";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import useFolderList from "pages/service/useFolderList";
+import useFolderList from "@api/useFolderList";
 import AddFolderLink from "../AddFolderLinkBar";
 import styles from "./Header.module.css";
 
 const Header = ({ isFolderPage }: { isFolderPage: boolean }) => {
-  const { data: folderData, isLoading } = useFolderList();
+  const { data: folderData, isLoading } = useFolderList(1);
 
   const [isSticky, setIsSticky] = useState(false);
   const headerRef = useRef(null);

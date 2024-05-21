@@ -4,15 +4,15 @@ import SearchBar from "@components/Searchbar";
 import FolderMenuList from "@components/FolderMenuList";
 import FolderContent from "@components/FolderContent";
 import AddButton from "@components/AddButton";
-import { fetchLinkData } from "pages/service/fetchFolderLinksData";
-import { LinkData } from "pages/service/fetchFolderLinksData";
+import { useFetchLinks } from "@api/useFetchLink";
+import { LinkData } from "@api/useFetchLink";
 import useFoldersByUserId from "pages/service/useFoldersByUserId";
 import styles from "./Folder.module.css";
 
-type FolderId = number | string | null;
+export type FolderId = number | string | null;
 
 interface FolderProps {
-  folderId: string;
+  folderId: number;
 }
 
 const Folder = ({ folderId }: FolderProps) => {
@@ -24,16 +24,18 @@ const Folder = ({ folderId }: FolderProps) => {
   const [activeFolderName, setActiveFolderName] = useState<string>("전체");
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await fetchLinkData(folderId);
-        setAllLinksData(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+    if (folderId !== null) {
+      const fetchData = async () => {
+        try {
+          const data = await useFetchLinks(1, folderId); //임시로 1번 설정
+          setAllLinksData(data);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
 
-    fetchData();
+      fetchData();
+    }
   }, [folderId]);
 
   const handleButtonClick = async (folderId: FolderId, folderName: string) => {
@@ -43,8 +45,6 @@ const Folder = ({ folderId }: FolderProps) => {
 
     setActiveButtonId(folderId === "전체" ? null : folderId);
     setActiveFolderName(folderName);
-    const data = await fetchLinkData(folderId);
-    setAllLinksData(data);
   };
 
   const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -28,7 +28,7 @@ const useFoldersByUserId = (userId: number): useFoldersByUserIdResponse => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/users/${userId}/folders`
+          `${process.env.NEXT_PUBLIC_BASE_URL}/users/${userId}`
         );
         const fetchedData: Folder = await response.json();
 
@@ -49,3 +49,5 @@ const useFoldersByUserId = (userId: number): useFoldersByUserIdResponse => {
 };
 
 export default useFoldersByUserId;
+
+/*${process.env.NEXT_PUBLIC_BASE_URL}/users/${userId}/folders*/

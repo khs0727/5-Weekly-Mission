@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import instance from "lib/api";
+import { AxiosResponse } from "axios";
 
 interface Owner {
   id: number;
@@ -30,19 +32,17 @@ interface FolderListState {
   isLoading: boolean;
 }
 
-const useFolderList = (): FolderListState => {
+const useFolderList = (userId: number): FolderListState => {
   const [data, setData] = useState<FolderData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
+        const response: AxiosResponse<FolderData> = await instance.get(
           `${process.env.NEXT_PUBLIC_BASE_URL}/sample/folder`
         );
-        const fetchedData = await response.json();
-
-        setData(fetchedData);
+        setData(response.data);
       } catch (error) {
         console.error("Error fetching folders data:", error);
       } finally {
@@ -57,3 +57,5 @@ const useFolderList = (): FolderListState => {
 };
 
 export default useFolderList;
+
+//${process.env.NEXT_PUBLIC_BASE_URL}/sample/folder
