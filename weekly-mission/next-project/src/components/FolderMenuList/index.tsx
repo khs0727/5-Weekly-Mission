@@ -5,13 +5,13 @@ import styles from "./FolderMenuList.module.css";
 
 interface FolderMenuListProps {
   folders: Folder;
-  activeButton: number | string | null;
+  activeButtonId: number | string | null;
   handleButtonClick: (folderId: number | null, folderName: string) => void;
 }
 
 const FolderMenuList = ({
   folders,
-  activeButton,
+  activeButtonId,
   handleButtonClick,
 }: FolderMenuListProps) => {
   if (!Array.isArray(folders.data) || folders.data.length === 0) {
@@ -21,13 +21,13 @@ const FolderMenuList = ({
   return (
     <div className={styles.foldermenulist_wrapper}>
       <AllButton
-        active={activeButton === null}
+        isActive={activeButtonId === null}
         onClick={() => handleButtonClick(null, "전체")}
       />
       {folders.data.map((folder) => (
         <button
           className={`${styles.foldermenu_toolbar_button} ${
-            activeButton === folder.id ? styles.active : ""
+            activeButtonId === folder.id ? styles.active : ""
           }`}
           key={folder.id}
           onClick={() => handleButtonClick(folder.id, folder.name)}

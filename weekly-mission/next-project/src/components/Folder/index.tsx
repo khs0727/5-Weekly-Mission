@@ -8,7 +8,6 @@ import { fetchLinkData } from "pages/service/fetchFolderLinksData";
 import { LinkData } from "pages/service/fetchFolderLinksData";
 import useFoldersByUserId from "pages/service/useFoldersByUserId";
 import styles from "./Folder.module.css";
-import { get } from "http";
 
 type FolderId = number | string | null;
 
@@ -84,7 +83,7 @@ const Folder = ({ folderId }: FolderProps) => {
       <div className={styles.foldermenu_toolbar}>
         <FolderMenuList
           folders={foldersData}
-          activeButton={activeButtonId}
+          activeButtonId={activeButtonId}
           handleButtonClick={handleButtonClick}
         />
         <AddButton />

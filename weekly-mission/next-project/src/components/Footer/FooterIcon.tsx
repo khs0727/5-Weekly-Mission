@@ -31,7 +31,7 @@ const FooterIcons = () => {
   return (
     <div className={styles.footericons}>
       {SOCIAL_SHARES.map((share, index) => (
-        <Link key={index} href={share.url} target="_blank">
+        <Link key={share.url} href={share.url} target="_blank">
           {share.icon}
         </Link>
       ))}

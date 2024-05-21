@@ -33,10 +33,9 @@ const LinksContent = ({
 
   const handleModalToggle = (modalType: string) => {
     if (modalState[modalType]) {
-      closeModal(modalType);
-    } else {
-      openModal(modalType);
+      return closeModal(modalType);
     }
+    return openModal(modalType);
   };
 
   return (

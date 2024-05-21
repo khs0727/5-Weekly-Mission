@@ -10,12 +10,12 @@ function SigninPage() {
     {}
   );
 
-  useEffect(() => {
+  /*useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
       router.push("/folder");
     }
-  }, []);
+  }, []);*/
 
   const handleSignIn = async (data: any) => {
     const { email, password } = data;

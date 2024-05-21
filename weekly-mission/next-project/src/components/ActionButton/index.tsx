@@ -12,7 +12,7 @@ interface ActiveButtonProps {
 
 const ActionButton = ({ handleModalToggle }: ActiveButtonProps) => {
   return (
-    <div className={styles.buttonwrapper}>
+    <div className={styles.button_container}>
       <div className={styles.actionbutton}>
         <Image
           className={styles.actionbutton_image}

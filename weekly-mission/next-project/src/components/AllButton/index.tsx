@@ -2,14 +2,14 @@ import React from "react";
 import styles from "./AllButton.module.css";
 
 interface AllButtonProps {
-  active: boolean;
+  isActive: boolean;
   onClick: () => void;
 }
 
-const AllButton = ({ active, onClick }: AllButtonProps) => {
+const AllButton = ({ isActive, onClick }: AllButtonProps) => {
   return (
     <button
-      className={`${styles.allbutton} ${active ? styles.active : ""}`}
+      className={`${styles.allbutton} ${isActive ? styles.active : ""}`}
       onClick={onClick}
     >
       전체

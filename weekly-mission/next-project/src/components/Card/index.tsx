@@ -24,44 +24,15 @@ interface CardProps {
 }
 
 const Card = ({ link, isFolderPage }: CardProps) => {
+  const { url, title, description } = link;
+  const createdAt = link.createdAt || link.created_at || "";
+  const imageSource = link.imageSource || link.image_source;
+
   const [isPopoverOpen, setPopoverOpen] = useState(false);
 
   const handleTogglePopover = () => {
     setPopoverOpen(!isPopoverOpen);
   };
-
-  return (
-    <>
-      {Array.isArray(link) ? (
-        link.map((item, index) => (
-          <Card key={index} link={item} isFolderPage={isFolderPage} />
-        ))
-      ) : (
-        <SingleCard
-          link={link}
-          isFolderPage={isFolderPage}
-          isPopoverOpen={isPopoverOpen}
-          handleTogglePopover={handleTogglePopover}
-        />
-      )}
-    </>
-  );
-};
-
-interface SingleCardProps extends CardProps {
-  isPopoverOpen: boolean;
-  handleTogglePopover: () => void;
-}
-
-const SingleCard = ({
-  link,
-  isFolderPage,
-  isPopoverOpen,
-  handleTogglePopover,
-}: SingleCardProps) => {
-  const { url, title, description } = link;
-  const createdAt = link.createdAt || link.created_at || "";
-  const imageSource = link.imageSource || link.image_source;
 
   return (
     <div className={styles.card_container}>
@@ -102,4 +73,5 @@ const SingleCard = ({
     </div>
   );
 };
+
 export default Card;

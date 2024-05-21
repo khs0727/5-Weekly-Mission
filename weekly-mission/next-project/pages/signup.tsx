@@ -10,12 +10,12 @@ function SignupPage() {
     {}
   );
 
-  useEffect(() => {
+  /*useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
       router.push("/folder");
     }
-  }, []);
+  }, []);*/
 
   const checkEmailDuplication = async (email: string) => {
     try {
