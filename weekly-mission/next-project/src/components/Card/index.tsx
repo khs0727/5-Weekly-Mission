@@ -12,21 +12,21 @@ import styles from "./Card.module.css";
 interface CardProps {
   link: {
     id: number;
-    createdAt?: string;
-    created_at?: string;
+    created_at: string;
+    updated_at: string | null;
     url: string;
-    title?: string;
-    description?: string;
-    imageSource?: string;
-    image_source?: string;
+    title: string;
+    description: string;
+    image_source: string;
+    folder_id: number | null;
   };
   isFolderPage: boolean;
 }
 
 const Card = ({ link, isFolderPage }: CardProps) => {
   const { url, title, description } = link;
-  const createdAt = link.createdAt || link.created_at || "";
-  const imageSource = link.imageSource || link.image_source;
+  const createdAt = link.created_at || "";
+  const imageSource = link.image_source;
 
   const [isPopoverOpen, setPopoverOpen] = useState(false);
 

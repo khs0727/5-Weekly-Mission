@@ -26,6 +26,8 @@ function LinkShare() {
     setFolderName(folderNameFromResponse);
   }
 
+  useState(() => setUserId(2)); //테스트용
+
   useEffect(() => {
     getFolder();
   }, []);
@@ -34,9 +36,10 @@ function LinkShare() {
     <Layout>
       <Nav userId={userId} />
       <Header isFolderPage={false} userId={userId} folderName={folderName} />
-      <CardList isFolderPage={false} />
+      <CardList isFolderPage={false} userId={userId} folderId={folderId} />
       <Footer />
     </Layout>
   );
 }
+
 export default LinkShare;
