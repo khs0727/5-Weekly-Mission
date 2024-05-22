@@ -8,6 +8,7 @@ import { useFetchLinks } from "@api/useFetchLink";
 import { LinkData } from "@api/useFetchLink";
 import useFoldersByUserId from "pages/service/useFoldersByUserId";
 import styles from "./Folder.module.css";
+import useFolderData from "@api/useFolderData";
 
 export type FolderId = number | string | null;
 
