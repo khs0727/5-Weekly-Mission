@@ -6,7 +6,7 @@ import LinkbraryImage from "../../images/Linkbrary.png";
 import styles from "./Nav.module.css";
 import instance from "lib/api";
 
-interface User {
+export interface User {
   id: number;
   created_at: string;
   name: string;
@@ -20,12 +20,12 @@ const Nav = ({ userId }: { userId: number | null }) => {
 
   async function getUser() {
     const res = await instance.get(`/users/${userId}`);
-    const userData: User = res.data.data;
+    const userData: User = res.data.data[0];
     setUser(userData);
   }
 
   useEffect(() => {
-    if (!userId) {
+    if (userId) {
       getUser();
     }
   }, [userId]);

@@ -83,6 +83,12 @@ const nextConfig = {
         port: "",
         pathname: "/badges/**",
       },
+      {
+        protocol: "https",
+        hostname: "ca.slack-edge.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
 };

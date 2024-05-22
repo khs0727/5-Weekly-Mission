@@ -3,13 +3,32 @@ import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import useFolderList from "@api/useFolderList";
 import AddFolderLink from "../AddFolderLinkBar";
+import { User } from "@components/Nav";
 import styles from "./Header.module.css";
+import instance from "lib/api";
 
-const Header = ({ isFolderPage }: { isFolderPage: boolean }) => {
-  const { data: folderData, isLoading } = useFolderList(1);
+interface HeaderProps {
+  isFolderPage: boolean;
+  userId: number | null;
+  folderName: string | null;
+}
 
+const Header = ({ isFolderPage, userId, folderName }: HeaderProps) => {
+  const [user, setUser] = useState<User | null>(null);
   const [isSticky, setIsSticky] = useState(false);
   const headerRef = useRef(null);
+
+  async function getUser() {
+    const res = await instance.get(`/users/${userId}`);
+    const userData: User = res.data.data[0];
+    setUser(userData);
+  }
+
+  useEffect(() => {
+    if (userId) {
+      getUser();
+    }
+  }, [userId]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -36,19 +55,17 @@ const Header = ({ isFolderPage }: { isFolderPage: boolean }) => {
         <AddFolderLink />
       ) : (
         <div className={styles.folderinfo_container}>
-          {folderData && (
+          {user && (
             <div className={styles.folderinfo}>
               <Image
                 className={styles.profileimage}
-                src={folderData.folder.owner.profileImageSource}
+                src={user.image_source}
                 alt="폴더 소유자 프로필"
                 width={60}
                 height={60}
               />
-              <span className={styles.ownername}>
-                {folderData.folder.owner.name}
-              </span>
-              <h1 className={styles.foldername}>{folderData.folder.name}</h1>
+              <span className={styles.ownername}>{user.name}</span>
+              <h1 className={styles.foldername}>{folderName}</h1>
             </div>
           )}
         </div>
