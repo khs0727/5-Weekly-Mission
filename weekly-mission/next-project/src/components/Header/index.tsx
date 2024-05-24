@@ -9,8 +9,8 @@ import instance from "lib/api";
 
 interface HeaderProps {
   isFolderPage: boolean;
-  userId: number | null;
-  folderName: string | null;
+  userId?: number | null;
+  folderName?: string | null;
 }
 
 const Header = ({ isFolderPage, userId, folderName }: HeaderProps) => {

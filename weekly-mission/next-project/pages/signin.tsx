@@ -10,12 +10,12 @@ function SigninPage() {
     {}
   );
 
-  /*useEffect(() => {
+  useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
       router.push("/folder");
     }
-  }, []);*/
+  }, []);
 
   const handleSignIn = async (data: any) => {
     const { email, password } = data;
@@ -24,7 +24,9 @@ function SigninPage() {
       const response = await instance.post(`/sign-in`, { email, password });
       if (response.status === 200) {
         // 로그인 성공
-        const { accessToken } = response.data;
+
+        const { accessToken } = response.data.accessToken;
+
         localStorage.setItem("accessToken", accessToken);
 
         router.push("/folder");

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "@components/Card";
 import NoLink from "@components/NoLink";
 import ActionButton from "@components/ActionButton";
@@ -8,16 +8,20 @@ import { Folder } from "pages/service/useFoldersByUserId";
 
 import styles from "./LinksContent.module.css";
 
+interface Link {
+  id: string;
+  url: string;
+  title: string;
+  description: string;
+  folder_id: number;
+  created_at: string;
+  updated_at: string | null;
+  image_source: string;
+}
+
 interface LinksContentProps {
   foldersData: Folder;
-  linksData: {
-    id: number;
-    title: string;
-    created_at: string;
-    url: string;
-    description?: string;
-    image_source?: string;
-  }[];
+  linksData: Link[];
   activeFolderName: string;
   activeFolderId: number;
 }
@@ -28,8 +32,10 @@ const LinksContent = ({
   activeFolderName,
   activeFolderId,
 }: LinksContentProps) => {
-  const isEmpty = !linksData || linksData.length === 0;
+  const isEmpty = linksData.length === 0;
   const { modalState, openModal, closeModal } = useModal();
+
+  console.log(linksData);
 
   const handleModalToggle = (modalType: string) => {
     if (modalState[modalType]) {
@@ -37,6 +43,8 @@ const LinksContent = ({
     }
     return openModal(modalType);
   };
+
+  if (!linksData) return null;
 
   return (
     <>

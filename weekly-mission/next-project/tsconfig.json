@@ -28,7 +28,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "pages/service/useFetchLink.ts"
+    "pages/service/useFetchLink.ts",
+    "src/context/ModalContext.tsx"
   ],
   "exclude": ["node_modules"]
 }

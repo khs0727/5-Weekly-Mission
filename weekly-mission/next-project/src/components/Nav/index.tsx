@@ -15,17 +15,24 @@ export interface User {
   auth_id: string;
 }
 
-const Nav = ({ userId }: { userId: number | null }) => {
-  const [user, setUser] = useState<User | null>(null);
+interface NavProps {
+  userId?: number | null;
+  user?: User | null;
+}
+
+const Nav = ({ userId, user }: NavProps) => {
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
 
   async function getUser() {
     const res = await instance.get(`/users/${userId}`);
     const userData: User = res.data.data[0];
-    setUser(userData);
+    setCurrentUser(userData);
   }
 
   useEffect(() => {
-    if (userId) {
+    if (user) {
+      setCurrentUser(user);
+    } else if (userId) {
       getUser();
     }
   }, [userId]);
@@ -43,10 +50,10 @@ const Nav = ({ userId }: { userId: number | null }) => {
             />
           </Link>
         </div>
-        {user ? (
+        {currentUser ? (
           <div className={styles.ProfileInfo}>
             <Image src={profileImage} alt="프로필 이미지" />
-            <span>{user.email}</span>
+            <span>{currentUser.email}</span>
           </div>
         ) : (
           <Link href="/signin">

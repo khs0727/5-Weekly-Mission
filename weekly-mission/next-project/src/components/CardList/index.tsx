@@ -5,6 +5,7 @@ import { memo } from "react";
 import Card from "../Card";
 import styles from "./CardList.module.css";
 import instance from "lib/api";
+import { useRouter } from "next/router";
 interface Link {
   id: number;
   created_at: string;
@@ -18,14 +19,14 @@ interface Link {
 
 interface CardListProps {
   isFolderPage: boolean;
-  userId: number | null;
-  folderId: string | string[] | undefined;
+  userId?: number | null;
+  folderId?: string | string[] | null | undefined;
 }
 
 const CardList = ({ isFolderPage, userId, folderId }: CardListProps) => {
   const [links, setLinks] = useState<Link[]>([]);
 
-  async function getLinks() {
+  async function getSharedLinks() {
     if (!userId) {
       return;
     }
@@ -41,7 +42,7 @@ const CardList = ({ isFolderPage, userId, folderId }: CardListProps) => {
   }
 
   useEffect(() => {
-    getLinks();
+    getSharedLinks();
   }, [userId, folderId]);
 
   return (
@@ -57,7 +58,7 @@ const CardList = ({ isFolderPage, userId, folderId }: CardListProps) => {
                 <Card key={link.id} link={link} isFolderPage={isFolderPage} />
               ))
             ) : (
-              <p>No links available</p>
+              <p>저장된 링크가 없습니다.</p>
             )}
           </div>
         </>

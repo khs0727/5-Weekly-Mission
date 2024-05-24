@@ -1,16 +1,15 @@
-import React from "react";
 import { ModalProvider } from "src/context/ModalContext";
-import Nav from "@components/Nav";
+import Nav, { User } from "@components/Nav";
 import Header from "@components/Header";
 import CardList from "@components/CardList";
 import Footer from "@components/Footer";
 import Layout from "@components/Layout";
 
-function FolderPage() {
+function FolderPageLayout({ user }) {
   return (
     <ModalProvider>
       <Layout>
-        <Nav />
+        <Nav user={user} />
         <Header isFolderPage={true} />
         <CardList isFolderPage={true} />
         <Footer />
@@ -19,4 +18,4 @@ function FolderPage() {
   );
 }
 
-export default FolderPage;
+export default FolderPageLayout;
