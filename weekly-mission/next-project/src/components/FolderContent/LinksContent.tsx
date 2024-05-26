@@ -9,7 +9,7 @@ import { Folder } from "pages/service/useFoldersByUserId";
 import styles from "./LinksContent.module.css";
 
 interface Link {
-  id: string;
+  id: number;
   url: string;
   title: string;
   description: string;
@@ -19,9 +19,13 @@ interface Link {
   image_source: string;
 }
 
+interface FolderData {
+  folder: Link[] | null | undefined;
+}
+
 interface LinksContentProps {
   foldersData: Folder;
-  linksData: Link[];
+  linksData: FolderData;
   activeFolderName: string;
   activeFolderId: number;
 }
@@ -32,10 +36,12 @@ const LinksContent = ({
   activeFolderName,
   activeFolderId,
 }: LinksContentProps) => {
-  const isEmpty = linksData.length === 0;
   const { modalState, openModal, closeModal } = useModal();
+  const [isLoading, setIsLoading] = useState(true);
 
-  console.log(linksData);
+  /*useEffect(() => {
+    setIsLoading(!linksData || !linksData.folder);
+  }, [linksData.folder]);*/
 
   const handleModalToggle = (modalType: string) => {
     if (modalState[modalType]) {
@@ -44,7 +50,26 @@ const LinksContent = ({
     return openModal(modalType);
   };
 
-  if (!linksData) return null;
+  if (isLoading || !linksData.folder) {
+    return (
+      <>
+        <div className={styles.foldermenu_toolbar}>
+          <div className={styles.foldermenu_selectedfolder}>
+            {activeFolderName}
+          </div>
+          {activeFolderId !== null && (
+            <ActionButton handleModalToggle={handleModalToggle} />
+          )}
+        </div>
+
+        <div className={styles.folder_container}>
+          <p>Loading...</p>
+        </div>
+      </>
+    );
+  }
+
+  const isEmpty = linksData.folder.length === 0;
 
   return (
     <>
@@ -57,11 +82,11 @@ const LinksContent = ({
         )}
       </div>
 
-      <div className={styles.folder_containter}>
+      <div className={styles.folder_container}>
         {isEmpty ? (
           <NoLink />
         ) : (
-          linksData.map((link) => (
+          linksData.folder.map((link) => (
             <Card key={link.id} link={link} isFolderPage={true} />
           ))
         )}
